@@ -136,8 +136,8 @@ years <- unique(year(TotalBicisMonth$date))
 years
 ```
 ```r
-png("Plot2")
-ggplot(data = TotalBicisMonth, aes(x = TotalBicisMonth$date, y = TotalBicisMonth$usosbicitotal, group = 1))+title(main="Evolución Uso BiciMadrid") +geom_line(colour = "blue") 
-dev.off()
+png("Plot2.png")
+ggplot(data = TotalBicisMonth, aes(x = TotalBicisMonth$date, y = TotalBicisMonth$usosbicitotal, group = 1))+geom_line(colour = "blue") dev.off()
+
 ```
 ![plot of chunkPlot1](https://github.com/MontseFigueiro/KSCHOOL_BiciMadrid/blob/master/Plot2.png) 
