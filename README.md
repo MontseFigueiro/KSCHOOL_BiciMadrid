@@ -126,7 +126,7 @@ class(xticks)
 
 #Plot
 ```r
-png("Plot1")
+png("Plot1.png")
 plot(TotalBicisMonth$date,TotalBicisMonth$usosbicitotal,col="red",sub="Datos de junio 2014 a abril 2016",main="Evolución Uso BiciMadrid",xlab="Meses",ylim=range(0:400000),ylab="Número de Usos mensuales")
 dev.off()
 ```
