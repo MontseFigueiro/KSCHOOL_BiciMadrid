@@ -7,7 +7,7 @@ fileURL <- "http://datos.madrid.es/egob/catalogo/213155-3-bicimad-usos-usuarios.
 download.file(fileURL,destfile = "bicimadrid.csv")
 datosbicimadrid <- read.csv("Bicimadrid2.csv",sep=";",header=TRUE)
 ```
-#cheking the data
+#Cheking the data
 ```r
 tail(datosbicimadrid)
 head(datosbicimadrid,16)
@@ -18,11 +18,11 @@ summary(datosbicimadrid)
 ```
 
 ***********Pruebas fallidas*************************************************************************************************
-#datosbicimadrid$new <- lapply(datosbicimadrid$Usos.bicis.total, function(x) as.numeric(gsub("\\.", "", as.character(x))))
-#datosbicimadrid$Usos.bicis.total <-    gsub(".", "", datosbicimadrid$Usos.bicis.total, fixed = TRUE)
-#datosbicimadrid$pruebatotal <-    gsub(datosbicimadrid$Usos.bicis.total,pattern='[.]',replacement='')
-#datosbicimadrid$Usos.bicis.total <-    as.numeric(datosbicimadrid$Usos.bicis.total)
-#sum(datosbicimadrid$Usos.bicis.total,na.rm=TRUE)----ERROR en numeros acabados en 0
+datosbicimadrid$new <- lapply(datosbicimadrid$Usos.bicis.total, function(x) as.numeric(gsub("\\.", "", as.character(x))))
+datosbicimadrid$Usos.bicis.total <-    gsub(".", "", datosbicimadrid$Usos.bicis.total, fixed = TRUE)
+datosbicimadrid$pruebatotal <-    gsub(datosbicimadrid$Usos.bicis.total,pattern='[.]',replacement='')
+datosbicimadrid$Usos.bicis.total <-    as.numeric(datosbicimadrid$Usos.bicis.total)
+sum(datosbicimadrid$Usos.bicis.total,na.rm=TRUE)----ERROR en numeros acabados en 0
 
 
 #NA to 0
@@ -53,25 +53,25 @@ usostotales <- datosutiles[order(datosutiles$DIA),]
 head(usostotales)
 sum(usostotales$por1000) #4691538
 ```
-##EXTRACT MONTH
-#install.packages("lubridate")
+#EXTRACT MONTH
+install.packages("lubridate")
 ```r
 library(lubridate)
 ```
-#usostotales$month <- month(usostotales$DIA)
-#usostotales$year <- year(usostotales$DIA)
+usostotales$month <- month(usostotales$DIA)
+usostotales$year <- year(usostotales$DIA)
 
 
-##New variable with year and month
-#install.packages("zoo")
-#library(zoo)
-#usostotales$yearmon <- as.yearmon(paste(year(usostotales$DIA), month(usostotales$DIA), sep = "-"))
-#usostotales$yearmon <- as.Date(paste('01', usostotales$yearmon), format='%d %b %Y')
-#head(usostotales) # look at it
+#New variable with year and month
+install.packages("zoo")
+library(zoo)
+usostotales$yearmon <- as.yearmon(paste(year(usostotales$DIA), month(usostotales$DIA), sep = "-"))
+usostotales$yearmon <- as.Date(paste('01', usostotales$yearmon), format='%d %b %Y')
+head(usostotales) # look at it
 
-#first15 <- datosutiles[1:15,names(datosutiles) %in% c("DIA","por1000")]
-#first15$por1000 <- (first15$por1000)/1000 
-#list <- data.frame(datosbicimadrid[1:15,"por1000"]/1000)
+first15 <- datosutiles[1:15,names(datosutiles) %in% c("DIA","por1000")]
+first15$por1000 <- (first15$por1000)/1000 
+list <- data.frame(datosbicimadrid[1:15,"por1000"]/1000)
 
 
 #Extract a data frame for every year
@@ -81,14 +81,14 @@ totalesmes2014 <- aggregate(usostotales2014$por1000 ~ month(usostotales2014$DIA)
 names(totalesmes2014) <- c("date","Totalusobicis")
 sum(totalesmes2014$Totalusobicis)
 ```
-#726662
+726662
 ```r
 usostotales2015 <- usostotales[year(usostotales$DIA)==2015,]
 totalesmes2015 <- aggregate(usostotales2015$por1000 ~ month(usostotales2015$DIA),FUN=sum,na.rm=TRUE)
 names(totalesmes2015) <- c("date","Totalusobicis")
 sum(totalesmes2015$Totalusobicis)
 ```
-#3075454
+3075454
 
 ```r
 usostotales2016 <- usostotales[year(usostotales$DIA)==2016,]
@@ -96,7 +96,7 @@ totalesmes2016 <- aggregate(usostotales2016$por1000 ~ month(usostotales2016$DIA)
 names(totalesmes2016) <- c("date","Totalusobicis")
 sum(totalesmes2016$Totalusobicis)
 ```
-#889422
+889422
 
 
 
@@ -106,7 +106,7 @@ library(ggplot2)
 ggplot(data=totalesmes2014, aes(x=totalesmes2014$date,y=totalesmes2014$Totalusobicis)) +geom_line()+labs(x="Months",y="Usos Totales Bicis")
 ```
 
-##Agregate by month and sum "Usos.bicis.total"
+#Agregate by month and sum "Usos.bicis.total"
 ```r
 TotalBicisMonth <-  aggregate(usostotales$por1000 ~ usostotales$yearmon, FUN = sum, na.rm=TRUE)
 names(TotalBicisMonth) <- c("date", "usosbicitotal")
@@ -114,9 +114,9 @@ sum(TotalBicisMonth$usosbicitotal,na.rm=TRUE)
 class(TotalBicisMonth$date) 
 ``` 
 
-#TotalBicisMonth$month <- month(TotalBicisMonth$date)
-#TotalBicisMonth <- transform(TotalBicisMonth, MonthAbb = month.abb[TotalBicisMonth$date])
-#TotalBicisMonth$MonthAbb <- NULL
+TotalBicisMonth$month <- month(TotalBicisMonth$date)
+TotalBicisMonth <- transform(TotalBicisMonth, MonthAbb = month.abb[TotalBicisMonth$date])
+TotalBicisMonth$MonthAbb <- NULL
 ```r
 TotalBicisMonth$namescol <- paste(month.name[month(TotalBicisMonth$date)],year(TotalBicisMonth$date))
 row.names(TotalBicisMonth) <- TotalBicisMonth$namescol
