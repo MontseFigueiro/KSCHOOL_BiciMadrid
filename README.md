@@ -126,10 +126,16 @@ class(xticks)
 
 #Plot
 ```r
+png("Plot1")
 plot(TotalBicisMonth$date,TotalBicisMonth$usosbicitotal,col="red",sub="Datos de junio 2014 a abril 2016",main="Evolución Uso BiciMadrid",xlab="Meses",ylim=range(0:400000),ylab="Número de Usos mensuales")
+dev.off()
+```
+```r
 years <- unique(year(TotalBicisMonth$date))
 years
 ```
 ```r
+png("Plot2")
 ggplot(data = TotalBicisMonth, aes(x = TotalBicisMonth$date, y = TotalBicisMonth$usosbicitotal, group = 1))+title(main="Evolución Uso BiciMadrid") +geom_line(colour = "blue") 
+dev.off()
 ```
