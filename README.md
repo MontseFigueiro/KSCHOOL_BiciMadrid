@@ -1,4 +1,4 @@
-# KSCHOOL_BiciMadrid
+# Estudio Usos Bicis totales BiciMadrid
 Frecuencia Uso BiciMadrid
 #Download the file bicimadrid.csv
 ```r
