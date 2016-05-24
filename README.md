@@ -1,5 +1,5 @@
-# Estudio Usos Bicis totales BiciMadrid
-Frecuencia Uso BiciMadrid
+# Frequency of use BiciMadrid
+
 #Download the file bicimadrid.csv
 ```r
 if(!file.exists("D:/master/data/Montse")){dir.create("D:/master/data/Montse")}
